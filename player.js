@@ -127,10 +127,44 @@ function createPlayer({
     showDuration();
   })();
 
+  function throttle(func, ms) {
+    // Source code snippet https://learn.javascript.ru/task/throttle
+
+    let isThrottled = false,
+      savedArgs,
+      savedThis;
+
+    function wrapper() {
+
+      if (isThrottled) { // (2)
+        savedArgs = arguments;
+        savedThis = this;
+        return;
+      }
+
+      func.apply(this, arguments); // (1)
+
+      isThrottled = true;
+
+      setTimeout(function() {
+        isThrottled = false; // (3)
+        if (savedArgs) {
+          wrapper.apply(savedThis, savedArgs);
+          savedArgs = savedThis = null;
+        }
+      }, ms);
+    }
+
+    return wrapper;
+  }
 
   (function activateProgressbar(){
     const $progress = $playerContainer.find('.js-progress');
     const $slider = $progress.find('.js-progress-slider');
+
+    function setSliderWidth(percentage){
+      $slider.css("width", `${percentage}%`);
+    }
 
     function updateSliderWidth(){
       const durationSeconds = player.getDuration();
@@ -138,9 +172,8 @@ function createPlayer({
         $slider.css("width", "0%");
         return;
       }
-      const percent = player.getCurrentTime() / durationSeconds * 100;
-
-      $slider.css("width", `${percent}%`);
+      const percentage = player.getCurrentTime() / durationSeconds * 100;
+      setSliderWidth(percentage);
     }
     player.on(Playable.VIDEO_EVENTS.CURRENT_TIME_UPDATED, updateSliderWidth);
     player.on(Playable.VIDEO_EVENTS.DURATION_UPDATED, updateSliderWidth);
@@ -148,7 +181,7 @@ function createPlayer({
 
     // Code snippet from https://codepen.io/frytyler/pen/juGfk
 
-    var updateVideoProgress = function(x) {
+    function updateVideoProgress(x){
       const durationSeconds = player.getDuration();
 
       //calculate drag position
@@ -163,28 +196,23 @@ function createPlayer({
       if(percentage < 0) {
         percentage = 0;
       }
-      $('.timeBar').css('width', `${percentage}%`);
+      setSliderWidth(percentage);  // Redraw before CURRENT_TIME_UPDATED event for better responsiveness
       seconds = durationSeconds * percentage / 100;
-
       player.seekTo(seconds);
     };
 
+    const throttledUpdateVideoProgress = throttle(updateVideoProgress, 100);
 
-    var timeDrag = false;   /* check for drag event */
+
     $progress.on('mousedown', function(e) {
-      timeDrag = true;
-      updateVideoProgress(e.pageX);
+      throttledUpdateVideoProgress(e.pageX);
+      $(document).on('mousemove', (e) => {
+        throttledUpdateVideoProgress(e.pageX)
+      });
     });
     $(document).on('mouseup', function(e) {
-      if(timeDrag) {
-        timeDrag = false;
-        updateVideoProgress(e.pageX);
-      }
-    });
-    $(document).on('mousemove', function(e) {
-      if(timeDrag) {
-        updateVideoProgress(e.pageX);
-      }
+      $(document).off('mousemove');
+      throttledUpdateVideoProgress(e.pageX);
     });
   })();
 }
