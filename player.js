@@ -93,8 +93,8 @@ function createPlayer({
     toggleVolumeMuteBtns();
   })();
 
-  const $fullscreanButton = $playerContainer.find('.js-fullscrean-button');
-  $fullscreanButton.click(()=>{
+  const $fullscreenButton = $playerContainer.find('.js-fullscreen-button');
+  $fullscreenButton.click(()=>{
     player.enterFullScreen();
   });
 
