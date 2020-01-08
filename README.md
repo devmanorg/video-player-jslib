@@ -61,6 +61,16 @@ JS код поставляется в виде одного файла `player.j
 - Страница с минимальными настройками — `example_min.html`
 - Страница с максимальными настройками — `example_max.html`
 
+С помощью аргумента `src` плейеру можно указать как видео проигрывать:
+
+```html
+<script type="text/javascript">
+  createPlayer({
+    elementId: 'player',
+    src: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4'
+});
+</script>
+```
 
 ## TODO
 
