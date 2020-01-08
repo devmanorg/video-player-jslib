@@ -210,7 +210,7 @@ function createPlayer({
         throttledUpdateVideoProgress(e.pageX)
       });
     });
-    $(document).on('mouseup', function(e) {
+    $progress.on('mouseup', function(e) {
       $(document).off('mousemove');
       throttledUpdateVideoProgress(e.pageX);
     });
