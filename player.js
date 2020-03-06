@@ -1,6 +1,6 @@
 function createPlayer({
   elementId,
-  src='https://wixmp-01bd43eabd844aac9eab64f5.wixmp.com/videos/output/720p/Highest Peak.mp4'
+  src='https://dvmn.org/media/filer_public/78/db/78db3456-3fd3-4504-9ed9-d2d1fd843c0b/highest_peak.mp4'
 }){
   const player = Playable.create({
     fillAllSpace: true,
