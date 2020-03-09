@@ -42,7 +42,7 @@ JS код поставляется в виде одного файла `player.j
 </script>
 ```
 
-Этот код добавит на страницу плеер, который играет видео по [этой ссылке](https://wixmp-01bd43eabd844aac9eab64f5.wixmp.com/videos/output/720p/Highest%20Peak.mp4).
+Этот код добавит на страницу плеер, который играет видео по [этой ссылке](https://dvmn.org/media/filer_public/78/db/78db3456-3fd3-4504-9ed9-d2d1fd843c0b/highest_peak.mp4).
 
 Если хочется выбрать другое видео, с помощью аргумента `src` плееру можно указать как видео проигрывать, ссылки обязаны заканчиваться расширенем файла:
 
@@ -50,7 +50,7 @@ JS код поставляется в виде одного файла `player.j
 <script type="text/javascript">
   createPlayer({
     elementId: 'player',
-    src: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4'
+    src: 'https://dvmn.org/media/filer_public/d0/16/d016d9b8-4180-4bb9-ad83-0241f61627b8/samsung_demo_-_alive_in_color.mp4'
 });
 </script>
 ```
