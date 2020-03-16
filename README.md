@@ -29,8 +29,8 @@ JS код поставляется в виде одного файла `player.j
 Для работы библиотека требует HTML разметки. Вот полный пример с минимальным количеством настроек:
 
 ```html
-<div id="player">
-  <div class="js-video-container" style="width: 800px; height: 600px;"></div>
+<div id="player" style="width: 800px; height: 600px;">
+    <div class="js-video-container" style="width: 100%; height: 100%"></div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
